@@ -14,10 +14,18 @@ public class Main {
         System.out.println("qualcuno si è collegato");
         BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
         DataOutputStream out = new DataOutputStream(s.getOutputStream());
-        String stringaRicevuta = in.readLine();
-        System.out.println("la stringa ricevuta: " + stringaRicevuta);
-        String stringaMaiuscola = stringaRicevuta.toUpperCase();
-        out.writeBytes(stringaMaiuscola);
+        String stringaRicevuta;
+        String stringaMaiuscola;
+        do {
+            stringaRicevuta = in.readLine();
+            System.out.println("la stringa ricevuta: " + stringaRicevuta);
+            stringaMaiuscola = stringaRicevuta.toUpperCase();
+            if (stringaRicevuta.equals("!")) {
+                out.writeBytes("comunicazione terminata \n");
+            }else{
+                out.writeBytes( stringaMaiuscola + "\n");
+            }
+        } while (!stringaRicevuta.equals("!"));
         s.close();
         ss.close();
     }
